@@ -1,0 +1,12 @@
+target/
+.mvn/
+*.class
+*.jar
+*.war
+.git
+.gitignore
+.DS_Store
+*.md
+.env
+.vscode
+.idea

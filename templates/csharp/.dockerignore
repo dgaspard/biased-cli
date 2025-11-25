@@ -1,0 +1,12 @@
+bin/
+obj/
+*.user
+*.suo
+.vs/
+.git
+.gitignore
+.DS_Store
+*.md
+.env
+.vscode
+.idea

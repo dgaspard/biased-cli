@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src:/app/src
+      - ./biased:/app/biased
+    environment:
+      - NODE_ENV=development
+      - PROJECT_NAME=biasedDashboard
+    restart: unless-stopped

@@ -1,0 +1,13 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./biased:/app/biased
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - PROJECT_NAME={{PROJECT_NAME}}
+    restart: unless-stopped
