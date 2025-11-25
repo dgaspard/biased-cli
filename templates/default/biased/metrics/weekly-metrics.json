@@ -1,9 +1,0 @@
-{
-  "week_start": "2025-11-24",
-  "behavior_accuracy": null,
-  "consistency_score": null,
-  "hallucination_rate": null,
-  "drift_score": null,
-  "adoption_rate": null,
-  "override_rate": null
-}

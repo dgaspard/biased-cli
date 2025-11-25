@@ -1,7 +1,7 @@
 {
   "name": "biased-cli",
-  "version": "0.1.1",
-  "description": "BIASED CLI scaffolder and workflow helpers",
+  "version": "0.2.0",
+  "description": "Add the BIASED framework to any project - language-agnostic AI ceremonies and metrics",
   "bin": {
     "biased": "dist/cli.js",
     "biased-cli": "dist/cli.js"

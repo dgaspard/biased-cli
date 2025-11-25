@@ -1,0 +1,32 @@
+{
+    "thresholds": {
+        "behaviorAccuracy": {
+            "min": 0.9,
+            "target": 0.99
+        },
+        "hallucinationRate": {
+            "max": 0.05,
+            "target": 0.0
+        },
+        "latencyMs": {
+            "max": 2000,
+            "target": 500
+        },
+        "costPerRequestUsd": {
+            "max": 0.10,
+            "target": 0.01
+        }
+    },
+    "display": {
+        "showCharts": true,
+        "historyLengthDays": 30,
+        "refreshRateSeconds": 300
+    },
+    "alerts": {
+        "enabled": true,
+        "channels": [
+            "email",
+            "slack"
+        ]
+    }
+}

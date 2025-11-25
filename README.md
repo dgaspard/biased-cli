@@ -1,67 +1,64 @@
 # biased-cli
 
-**BIASED CLI** - Scaffold and run BIASED AI-ready projects with Docker support.
+**BIASED CLI** - Add the BIASED framework to any project, regardless of language or tech stack.
+
+## What is BIASED?
+
+BIASED is a framework for AI-ready software development that provides structure for:
+- **Intent** - Define what your AI should accomplish
+- **Behavior** - Specify expected AI behaviors
+- **Evaluation** - Test and measure AI performance
+- **Architecture** - Document AI system design
+- **Governance** - Manage AI risks and compliance
+- **Adoption** - Track AI adoption and UX
+- **Documentation** - Store business context for AI
+- **Metrics** - Monitor AI system health
 
 ## Quick Start
 
-### Create a New Project
-
-Create a new Docker-containerized project with the BIASED framework:
-
-```bash
-npx biased-cli new
-```
-
-This interactive command will prompt you for:
-- **Project name**
-- **Problem description** - What problem is your project solving?
-- **User personas** - Who are your target users?
-- **Language/Framework** - Choose from JavaScript, React, Python, Java, or C#
-
-The command creates a complete project with:
-- ✅ Docker configuration (Dockerfile + docker-compose.yml)
-- ✅ Language-specific application template
-- ✅ BIASED framework structure
-- ✅ Ready-to-run development environment
-
-**Example:**
-```bash
-npx biased-cli new
-# Follow the prompts, then:
-cd my-project
-docker-compose up --build
-```
-
-### Add BIASED to Existing Project
-
-Add the BIASED framework to an existing project:
+Add the BIASED framework to your existing project:
 
 ```bash
 npx biased-cli init
 ```
 
-## Supported Languages & Frameworks
+This creates a `biased/` folder with the complete framework structure in your current directory.
 
-The `biased new` command supports:
+## Installation
 
-| Language | Framework | Port | Description |
-|----------|-----------|------|-------------|
-| **JavaScript** | Node.js + Express | 3000 | REST API with Express |
-| **React** | Vite + React 18 | 3000 | Modern React SPA |
-| **Python** | Flask | 5000 | Python web API |
-| **Java** | Spring Boot | 8080 | Enterprise Java API |
-| **C#** | ASP.NET Core | 5000 | .NET web API |
+### One-time use (recommended)
+```bash
+npx biased-cli init
+```
 
-Each template includes:
-- Multi-stage Dockerfiles for optimized builds
-- docker-compose.yml for easy local development
-- Health check endpoints
-- BIASED framework integration
-- Comprehensive README
+### Global installation
+```bash
+npm install -g biased-cli
+biased init
+```
 
-## BIASED Framework Structure
+## Usage
 
-After running `biased new` or `biased init`, you get:
+### Initialize BIASED Framework
+
+Run this command in your project root directory:
+
+```bash
+biased init
+```
+
+**Options:**
+- `-n, --name <name>` - Specify project name (defaults to directory name)
+
+**Example:**
+```bash
+cd my-existing-project
+biased init --name "My AI Project"
+```
+
+## Framework Structure
+
+After running `biased init`, you'll have:
 
 ```
 your-project/
@@ -85,57 +82,92 @@ your-project/
 │   ├── adoption/            # Adoption & UX artifacts
 │   │   ├── adoption-metrics.md
 │   │   └── workflow-map.md
+│   ├── docs/                # Business documentation
+│   │   ├── branding/        # Brand guides, style guidelines
+│   │   ├── business-process/# Process maps, SOPs
+│   │   ├── strategy/        # Strategic plans, roadmaps
+│   │   ├── onboarding/      # New hire guides
+│   │   ├── operations/      # Runbooks, procedures
+│   │   └── training/        # Training materials
 │   └── metrics/             # Metrics tracking
 │       └── weekly-metrics.json
-├── src/                     # Your application code
-├── Dockerfile               # Docker configuration (new projects)
-├── docker-compose.yml       # Docker Compose setup (new projects)
-└── README.md
+└── [your existing project files]
 ```
 
-## BIASED Scripts
+## Business Documentation
 
-Projects include npm scripts for BIASED workflow:
+The `biased/docs/` folder provides a structured location for business documentation that AI can reference for context and branding while building applications. This documentation will also be hosted on the BIASED dashboard for your organization.
 
-- `npm run biased:validate` – Checks required BIASED artifacts exist and validates schema
-- `npm run biased:eval` – Runs evaluation set against your AI prompts
-- `npm run biased:metrics` – Prints weekly metrics from eval + drift files
+### Documentation Categories
 
-> The initial versions are intentionally simple. Replace with your real model, RAG stack, and telemetry.
+- **📘 branding/** - Brand identity, style guides, logo usage, color palettes, typography, voice and tone guidelines
+- **📊 business-process/** - Business process maps, workflow diagrams, standard operating procedures
+- **🎯 strategy/** - Strategic plans, roadmaps, vision statements, OKRs, competitive analysis
+- **🚀 onboarding/** - Employee onboarding guides, new hire checklists, role-specific onboarding
+- **⚙️ operations/** - Operational procedures, maintenance guides, incident response plans, runbooks
+- **📚 training/** - Training materials, tutorials, best practices, skill development resources
 
-## Docker Workflow
+Each folder includes comprehensive README templates to guide you in creating your documentation. An example brand guide template is included to help you get started.
 
-For projects created with `biased new`:
+### Why Business Documentation?
 
-```bash
-# Build and start the container
-docker-compose up --build
+- **AI Context**: Ensures AI tools understand your brand, processes, and business goals
+- **Consistency**: Maintains brand and operational consistency across AI-generated content
+- **Knowledge Base**: Centralizes business knowledge for team reference
+- **Dashboard Integration**: Ready for hosting on the BIASED dashboard
 
-# Run in detached mode
-docker-compose up -d
+## Getting Started
 
-# View logs
-docker-compose logs -f
+After initializing BIASED in your project:
 
-# Stop the container
-docker-compose down
-```
+1. **Define Intent** - Start with `biased/intent/intent.md` to describe what your AI should accomplish
+2. **Specify Behaviors** - Document expected behaviors in `biased/behavior/behavior-spec.md`
+3. **Add Business Context** - Populate `biased/docs/` with your brand guidelines and processes
+4. **Create Evaluations** - Add test cases to `biased/eval/eval-set.jsonl`
+5. **Document Architecture** - Describe your AI system in `biased/architecture/architecture.md`
+
+## Language Agnostic
+
+BIASED works with **any** programming language or framework:
+- JavaScript/TypeScript
+- Python
+- Java
+- C#
+- Go
+- Ruby
+- PHP
+- And more...
+
+The framework focuses on AI ceremonies and metrics, not code implementation.
+
+## Integration with BIASED Dashboard
+
+The BIASED framework is designed to integrate with the BIASED dashboard (coming soon), which will provide:
+- Centralized documentation hosting
+- Team collaboration features
+- AI-powered insights
+- Metrics visualization
+- Governance tracking
+
+## Philosophy
+
+BIASED decouples AI ceremonies and metrics from implementation details. This means:
+- ✅ Works with any language or tech stack
+- ✅ Focuses on AI governance and evaluation
+- ✅ Provides structure without being prescriptive
+- ✅ Integrates with your existing workflow
+- ✅ Scales from small projects to enterprise
 
 ## Commands
 
-### `biased new`
-Create a new BIASED project with Docker support. Interactive prompts guide you through project setup.
-
 ### `biased init`
-Add BIASED framework to an existing project in the current directory.
+Add the BIASED framework to your existing project in the current directory.
 
-## Template Architecture
+**Options:**
+- `-n, --name <name>` - Project name (defaults to directory name)
 
-The CLI uses a shared template structure:
-- `templates/_common/` - Shared BIASED framework files
-- `templates/{language}/` - Language-specific templates
-
-This ensures consistency across all project types while minimizing duplication.
+### `biased remove`
+Remove the BIASED framework from your project. This will permanently delete the `biased/` directory and all its contents. You will be prompted for confirmation.
 
 ## Contributing
 
@@ -145,3 +177,17 @@ PRs welcome! This tool is in active development.
 
 MIT
 
+## Version
+
+Current version: 0.2.0
+
+### Changelog
+
+**0.2.0** - Framework-only approach
+- Removed `biased new` command
+- Removed language-specific templates
+- Focus on adding BIASED framework to existing projects
+- Added comprehensive business documentation structure
+- Language-agnostic design
+
+**0.1.x** - Initial release with project scaffolding

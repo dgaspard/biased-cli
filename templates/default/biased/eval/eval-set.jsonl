@@ -1,2 +1,0 @@
-{"id":"E1","input":"Claim PDF text: ... contains clause 'Total payout capped at $10,000 if negligence is found.'","expected_summary_contains":["payout capped","$10,000","negligence"],"expected_risk_clauses":["cap at $10,000"],"max_hallucination":0}
-{"id":"E2","input":"Claim PDF text: ... unclear if flood or wind damage.","expected_summary_contains":["uncertain cause"],"expected_uncertainty":true}

@@ -10,8 +10,8 @@ import { fileURLToPath } from "node:url";
 const program = new Command();
 program
     .name("biased")
-    .description("BIASED CLI: scaffold and run BIASED AI-ready projects")
-    .version("0.1.0");
+    .description("BIASED CLI: Add the BIASED framework to any project")
+    .version("0.2.0");
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 async function copyTemplate(templateName, dest, vars) {
@@ -45,32 +45,38 @@ async function copyTemplate(templateName, dest, vars) {
 }
 program
     .command("init")
-    .description("Create a new BIASED project in the current folder")
+    .description("Add the BIASED framework to your existing project")
     .option("-n, --name <name>", "project name")
-    .option("-t, --template <template>", "template name", "default")
     .action(async (opts) => {
     const cwd = process.cwd();
     const existing = await fs.readdir(cwd);
-    if (existing.length > 0) {
+    // Check if biased folder already exists
+    if (existing.includes("biased")) {
+        console.log(chalk.yellow("\n⚠️  BIASED framework already exists in this directory.\n"));
         const { proceed } = await inquirer.prompt([{
                 type: "confirm",
                 name: "proceed",
-                message: "This folder is not empty. Continue and add BIASED scaffold?",
+                message: "Overwrite existing BIASED framework?",
                 default: false,
             }]);
         if (!proceed)
             return;
     }
     const name = opts.name ?? path.basename(cwd);
-    const spinner = ora(`Creating BIASED project '${name}'`).start();
+    const spinner = ora(`Adding BIASED framework to '${name}'`).start();
     try {
-        await copyTemplate(opts.template, cwd, { PROJECT_NAME: name });
-        spinner.succeed("BIASED project created.");
-        console.log(chalk.green("\nNext steps:"));
-        console.log("  npm install");
-        console.log("  npm run biased:validate   # validate intents/behaviors");
-        console.log("  npm run biased:eval       # run evaluation set");
-        console.log("  npm run biased:metrics    # show metrics snapshot\n");
+        await copyTemplate("_common", cwd, { PROJECT_NAME: name });
+        spinner.succeed(chalk.green("BIASED framework added successfully!"));
+        console.log(chalk.bold.blue("\n📚 BIASED Framework Structure:\n"));
+        console.log(chalk.cyan("  biased/intent/         - Define project intent and goals"));
+        console.log(chalk.cyan("  biased/behavior/       - Specify expected behaviors"));
+        console.log(chalk.cyan("  biased/eval/           - Evaluation sets and metrics"));
+        console.log(chalk.cyan("  biased/architecture/   - Architecture decisions"));
+        console.log(chalk.cyan("  biased/governance/     - Governance and risk management"));
+        console.log(chalk.cyan("  biased/adoption/       - Adoption metrics and workflows"));
+        console.log(chalk.cyan("  biased/docs/           - Business documentation"));
+        console.log(chalk.cyan("  biased/metrics/        - Metrics tracking\n"));
+        console.log(chalk.gray("💡 Start by editing biased/intent/intent.md\n"));
     }
     catch (e) {
         spinner.fail(e.message);
@@ -78,88 +84,34 @@ program
     }
 });
 program
-    .command("new")
-    .description("Create a new BIASED project with Docker support")
+    .command("remove")
+    .description("Remove the BIASED framework from your project")
     .action(async () => {
-    console.log(chalk.bold.blue("\n🚀 Create a new BIASED project\n"));
-    const answers = await inquirer.prompt([
-        {
-            type: "input",
-            name: "projectName",
-            message: "Project name:",
-            validate: (input) => input.trim().length > 0 || "Project name is required",
-        },
-        {
-            type: "input",
-            name: "projectProblem",
-            message: "What problem is this project trying to solve?",
-            validate: (input) => input.trim().length > 0 || "Problem description is required",
-        },
-        {
-            type: "input",
-            name: "userPersonas",
-            message: "Who are the user personas? (comma-separated)",
-            validate: (input) => input.trim().length > 0 || "User personas are required",
-        },
-        {
-            type: "list",
-            name: "language",
-            message: "Select a language/framework:",
-            choices: [
-                { name: "JavaScript (Node.js + Express)", value: "javascript" },
-                { name: "React (Vite + React)", value: "react" },
-                { name: "Python (Flask)", value: "python" },
-                { name: "Java (Spring Boot)", value: "java" },
-                { name: "C# (ASP.NET Core)", value: "csharp" },
-            ],
-        },
-    ]);
-    const { projectName, projectProblem, userPersonas, language } = answers;
-    const projectDir = path.join(process.cwd(), projectName);
-    // Check if directory already exists
-    if (await fs.pathExists(projectDir)) {
-        console.log(chalk.red(`\n❌ Directory '${projectName}' already exists.\n`));
-        process.exit(1);
+    const cwd = process.cwd();
+    const biasedDir = path.join(cwd, "biased");
+    if (!(await fs.pathExists(biasedDir))) {
+        console.log(chalk.yellow("\n⚠️  BIASED framework not found in this directory.\n"));
+        return;
     }
-    const spinner = ora(`Creating ${language} project '${projectName}'`).start();
+    console.log(chalk.red.bold("\n⚠️  WARNING: This will permanently delete the 'biased' folder and all its contents."));
+    console.log(chalk.red("   This includes all business documentation, intent, behavior, and evaluation files.\n"));
+    const { confirm } = await inquirer.prompt([{
+            type: "confirm",
+            name: "confirm",
+            message: "Are you sure you want to remove the BIASED framework?",
+            default: false,
+        }]);
+    if (!confirm) {
+        console.log(chalk.yellow("\nOperation cancelled.\n"));
+        return;
+    }
+    const spinner = ora("Removing BIASED framework...").start();
     try {
-        // Create project directory
-        await fs.ensureDir(projectDir);
-        // Copy template with variable substitution
-        await copyTemplate(language, projectDir, {
-            PROJECT_NAME: projectName,
-            PROJECT_PROBLEM: projectProblem,
-            USER_PERSONAS: userPersonas,
-        });
-        spinner.succeed(chalk.green(`Project '${projectName}' created successfully!`));
-        // Display next steps based on language
-        console.log(chalk.bold.blue("\n📦 Next steps:\n"));
-        console.log(chalk.cyan(`  cd ${projectName}`));
-        console.log(chalk.cyan("  docker-compose up --build"));
-        console.log();
-        // Language-specific URLs
-        const portMap = {
-            javascript: "3000",
-            react: "3000",
-            python: "5000",
-            java: "8080",
-            csharp: "5000",
-        };
-        const port = portMap[language] || "3000";
-        console.log(chalk.green(`🌐 Your application will be available at: http://localhost:${port}`));
-        console.log();
-        console.log(chalk.gray("📚 BIASED workflow:"));
-        console.log(chalk.gray("  1. Complete biased/intent/intent.md"));
-        console.log(chalk.gray("  2. Define biased/behavior/behavior-spec.md"));
-        console.log(chalk.gray("  3. Add evaluations to biased/eval/eval-set.jsonl"));
-        console.log();
+        await fs.remove(biasedDir);
+        spinner.succeed(chalk.green("BIASED framework removed successfully."));
     }
     catch (e) {
-        spinner.fail(chalk.red(e.message));
-        // Clean up on failure
-        if (await fs.pathExists(projectDir)) {
-            await fs.remove(projectDir);
-        }
+        spinner.fail(chalk.red(`Failed to remove BIASED framework: ${e.message}`));
         process.exit(1);
     }
 });
