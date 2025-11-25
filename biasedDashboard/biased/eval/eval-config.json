@@ -1,8 +1,0 @@
-{
-  "model": "your-model-here",
-  "metrics": {
-    "hallucination_rate_target": 0.03,
-    "risk_clause_recall_target": 0.95,
-    "tone_neutrality_target": 0.9
-  }
-}
