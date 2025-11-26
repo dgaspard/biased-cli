@@ -2,124 +2,474 @@
 # BIASED Framework - Application Configuration Template
 # ============================================================================
 # 
-# HOW TO USE THIS FILE:
+# AI AGENT INSTRUCTIONS:
+# This file uses structured metadata comments to enable automated parsing.
+# Each configuration variable includes:
+#   @var        - Variable name
+#   @type       - Data type (string|integer|boolean|url|enum)
+#   @required   - Whether this config is required (true|false)
+#   @description- What this configuration does
+#   @example    - Example values
+#   @default    - Default value (if optional)
+#   @validation - Validation rules or constraints
+#   @related    - Related configuration variables
+#
+# HOW TO USE THIS FILE (for developers):
 # 1. Copy this file and rename it to match your project's config format:
 #    - Node.js/JavaScript:  .env or config.js
 #    - Java:                application.properties
 #    - .NET:                appsettings.json
 #    - Python:              config.py or .env
-#    - Generic:             config.yaml or config.json
 #
 # 2. Replace placeholder values (shown in <angle_brackets>) with actual values
 # 3. Add this file to .gitignore to prevent committing sensitive data
-# 4. Document any new configuration in this template for team reference
 #
 # ============================================================================
 
 # ----------------------------------------------------------------------------
 # APPLICATION SETTINGS
 # ----------------------------------------------------------------------------
+
+# @var APP_NAME
+# @type string
+# @required true
+# @description The name of your application
+# @example MyApp, API Service, Customer Portal
+# @validation Non-empty string, alphanumeric with spaces/hyphens
 APP_NAME=<your_application_name>
+
+# @var APP_VERSION
+# @type string
+# @required false
+# @description Semantic version of the application
+# @example 1.0.0, 2.1.3-beta
+# @default 1.0.0
+# @validation Semantic versioning format (MAJOR.MINOR.PATCH)
 APP_VERSION=1.0.0
+
+# @var ENVIRONMENT
+# @type enum
+# @required true
+# @description Deployment environment
+# @options development, staging, production
+# @validation Must be one of: development, staging, production
 ENVIRONMENT=<development|staging|production>
 
 # ----------------------------------------------------------------------------
 # DATABASE CONFIGURATION
 # ----------------------------------------------------------------------------
-# Database connection details
+
+# @var DATABASE_HOST
+# @type string
+# @required true
+# @description Database server hostname or IP address
+# @example localhost, db.example.com, 192.168.1.100
+# @validation Valid hostname or IP address
+# @related DATABASE_PORT, DATABASE_NAME
 DATABASE_HOST=<database_host_url>
+
+# @var DATABASE_PORT
+# @type integer
+# @required true
+# @description Database server port number
+# @options 5432 (PostgreSQL), 3306 (MySQL), 1433 (SQL Server), 27017 (MongoDB)
+# @validation 1-65535
+# @related DATABASE_HOST
 DATABASE_PORT=<5432|3306|1433|27017>
+
+# @var DATABASE_NAME
+# @type string
+# @required true
+# @description Name of the database/schema
+# @example myapp_db, production_database
+# @validation Non-empty string, database naming conventions
 DATABASE_NAME=<database_name>
+
+# @var DATABASE_USER
+# @type string
+# @required true
+# @description Database username for authentication
+# @example db_user, admin
+# @validation Non-empty string
+# @related DATABASE_PASSWORD
 DATABASE_USER=<database_username>
+
+# @var DATABASE_PASSWORD
+# @type string
+# @required true
+# @description Database password (SENSITIVE - do not commit)
+# @example Use strong password, consider secrets manager
+# @validation Minimum 12 characters recommended
+# @security SENSITIVE - Use environment variables or secrets manager
+# @related DATABASE_USER
 DATABASE_PASSWORD=<database_password>
 
-# Connection pool settings (optional)
+# @var DATABASE_POOL_MIN
+# @type integer
+# @required false
+# @description Minimum number of database connections in pool
+# @default 2
+# @validation Positive integer, less than DATABASE_POOL_MAX
+# @related DATABASE_POOL_MAX
 DATABASE_POOL_MIN=2
+
+# @var DATABASE_POOL_MAX
+# @type integer
+# @required false
+# @description Maximum number of database connections in pool
+# @default 10
+# @validation Positive integer, greater than DATABASE_POOL_MIN
+# @related DATABASE_POOL_MIN
 DATABASE_POOL_MAX=10
 
 # ----------------------------------------------------------------------------
 # API CONFIGURATION
 # ----------------------------------------------------------------------------
-# External API endpoints
+
+# @var API_BASE_URL
+# @type url
+# @required true
+# @description Base URL for external API endpoints
+# @example https://api.example.com, https://api.staging.example.com
+# @validation Valid HTTPS URL
+# @related API_KEY, API_SECRET
 API_BASE_URL=<https://api.example.com>
+
+# @var API_KEY
+# @type string
+# @required true
+# @description API authentication key (SENSITIVE - do not commit)
+# @example abc123xyz456
+# @validation Non-empty string
+# @security SENSITIVE - Use environment variables or secrets manager
+# @related API_SECRET
 API_KEY=<your_api_key>
+
+# @var API_SECRET
+# @type string
+# @required true
+# @description API secret key (SENSITIVE - do not commit)
+# @example secret_abc123xyz456
+# @validation Non-empty string
+# @security SENSITIVE - Use environment variables or secrets manager
+# @related API_KEY
 API_SECRET=<your_api_secret>
+
+# @var API_TIMEOUT_SECONDS
+# @type integer
+# @required false
+# @description API request timeout in seconds
+# @default 30
+# @validation Positive integer, recommended 10-60
 API_TIMEOUT_SECONDS=30
 
 # ----------------------------------------------------------------------------
 # AUTHENTICATION & SECURITY
 # ----------------------------------------------------------------------------
+
+# @var JWT_SECRET
+# @type string
+# @required true
+# @description Secret key for JWT token signing (SENSITIVE - do not commit)
+# @example Use cryptographically secure random string (min 32 characters)
+# @validation Minimum 32 characters, cryptographically random
+# @security CRITICAL - Use environment variables or secrets manager, rotate regularly
 JWT_SECRET=<your_jwt_secret_key>
+
+# @var SESSION_SECRET
+# @type string
+# @required true
+# @description Secret for session encryption (SENSITIVE - do not commit)
+# @example Use cryptographically secure random string (min 32 characters)
+# @validation Minimum 32 characters, cryptographically random
+# @security CRITICAL - Use environment variables or secrets manager
 SESSION_SECRET=<your_session_secret>
+
+# @var ENCRYPTION_KEY
+# @type string
+# @required false
+# @description Key for data encryption at rest (SENSITIVE - do not commit)
+# @example 256-bit key in base64 or hex format
+# @validation Depends on encryption algorithm (AES-256 recommended)
+# @security CRITICAL - Use secrets manager, implement key rotation
 ENCRYPTION_KEY=<your_encryption_key>
 
-# Token expiration (in seconds)
+# @var ACCESS_TOKEN_EXPIRY
+# @type integer
+# @required false
+# @description Access token lifetime in seconds
+# @default 3600
+# @example 3600 (1 hour), 1800 (30 minutes)
+# @validation Positive integer, recommended 900-3600
+# @related REFRESH_TOKEN_EXPIRY
 ACCESS_TOKEN_EXPIRY=3600
+
+# @var REFRESH_TOKEN_EXPIRY
+# @type integer
+# @required false
+# @description Refresh token lifetime in seconds
+# @default 604800
+# @example 604800 (7 days), 2592000 (30 days)
+# @validation Positive integer, must be > ACCESS_TOKEN_EXPIRY
+# @related ACCESS_TOKEN_EXPIRY
 REFRESH_TOKEN_EXPIRY=604800
 
 # ----------------------------------------------------------------------------
 # SERVICE ENDPOINTS
 # ----------------------------------------------------------------------------
-# Third-party service integrations
+
+# @var EMAIL_SERVICE_URL
+# @type string
+# @required false
+# @description SMTP server hostname for email service
+# @example smtp.gmail.com, smtp.sendgrid.net
+# @validation Valid hostname
+# @related EMAIL_SERVICE_PORT, EMAIL_FROM_ADDRESS
 EMAIL_SERVICE_URL=<smtp.example.com>
+
+# @var EMAIL_SERVICE_PORT
+# @type integer
+# @required false
+# @description SMTP server port
+# @options 25 (unencrypted), 587 (TLS), 465 (SSL)
+# @default 587
+# @validation Common ports: 25, 465, 587
+# @related EMAIL_SERVICE_URL
 EMAIL_SERVICE_PORT=587
+
+# @var EMAIL_FROM_ADDRESS
+# @type string
+# @required false
+# @description Default sender email address
+# @example noreply@example.com, support@example.com
+# @validation Valid email format
+# @related EMAIL_SERVICE_URL
 EMAIL_FROM_ADDRESS=<noreply@example.com>
 
+# @var PAYMENT_GATEWAY_URL
+# @type url
+# @required false
+# @description Payment processing gateway URL
+# @example https://api.stripe.com, https://api.paypal.com
+# @validation Valid HTTPS URL
+# @related PAYMENT_API_KEY
 PAYMENT_GATEWAY_URL=<https://payment.example.com>
+
+# @var PAYMENT_API_KEY
+# @type string
+# @required false
+# @description Payment gateway API key (SENSITIVE - do not commit)
+# @example pk_live_abc123, pk_test_xyz789
+# @validation Non-empty string
+# @security SENSITIVE - Use environment variables or secrets manager
+# @related PAYMENT_GATEWAY_URL
 PAYMENT_API_KEY=<payment_api_key>
 
 # ----------------------------------------------------------------------------
 # FEATURE FLAGS
 # ----------------------------------------------------------------------------
-# Enable/disable features
+
+# @var FEATURE_AI_ASSISTANT
+# @type boolean
+# @required false
+# @description Enable AI assistant functionality
+# @default true
+# @options true, false
+# @validation Boolean value
 FEATURE_AI_ASSISTANT=true
+
+# @var FEATURE_ANALYTICS
+# @type boolean
+# @required false
+# @description Enable analytics tracking
+# @default true
+# @options true, false
+# @validation Boolean value
 FEATURE_ANALYTICS=true
+
+# @var FEATURE_BETA_FEATURES
+# @type boolean
+# @required false
+# @description Enable beta/experimental features
+# @default false
+# @options true, false
+# @validation Boolean value
 FEATURE_BETA_FEATURES=false
 
 # ----------------------------------------------------------------------------
 # LOGGING & MONITORING
 # ----------------------------------------------------------------------------
+
+# @var LOG_LEVEL
+# @type enum
+# @required false
+# @description Logging verbosity level
+# @options debug, info, warn, error
+# @default info
+# @validation Must be one of: debug, info, warn, error
 LOG_LEVEL=<debug|info|warn|error>
+
+# @var LOG_FORMAT
+# @type enum
+# @required false
+# @description Log output format
+# @options json, text
+# @default json
+# @validation Must be one of: json, text
 LOG_FORMAT=<json|text>
 
-# Monitoring service
+# @var MONITORING_ENABLED
+# @type boolean
+# @required false
+# @description Enable monitoring service integration
+# @default true
+# @options true, false
+# @validation Boolean value
+# @related MONITORING_API_KEY
 MONITORING_ENABLED=true
+
+# @var MONITORING_API_KEY
+# @type string
+# @required false
+# @description Monitoring service API key (SENSITIVE - do not commit)
+# @example mon_abc123xyz
+# @validation Non-empty string
+# @security SENSITIVE - Use environment variables
+# @related MONITORING_ENABLED
 MONITORING_API_KEY=<monitoring_service_key>
 
 # ----------------------------------------------------------------------------
 # PERFORMANCE SETTINGS
 # ----------------------------------------------------------------------------
+
+# @var CACHE_ENABLED
+# @type boolean
+# @required false
+# @description Enable application-level caching
+# @default true
+# @options true, false
+# @validation Boolean value
+# @related CACHE_TTL_SECONDS
 CACHE_ENABLED=true
+
+# @var CACHE_TTL_SECONDS
+# @type integer
+# @required false
+# @description Cache time-to-live in seconds
+# @default 3600
+# @example 300 (5 min), 3600 (1 hour), 86400 (24 hours)
+# @validation Positive integer
+# @related CACHE_ENABLED
 CACHE_TTL_SECONDS=3600
 
+# @var RATE_LIMIT_ENABLED
+# @type boolean
+# @required false
+# @description Enable API rate limiting
+# @default true
+# @options true, false
+# @validation Boolean value
+# @related RATE_LIMIT_MAX_REQUESTS, RATE_LIMIT_WINDOW_SECONDS
 RATE_LIMIT_ENABLED=true
+
+# @var RATE_LIMIT_MAX_REQUESTS
+# @type integer
+# @required false
+# @description Maximum requests allowed within window
+# @default 100
+# @validation Positive integer
+# @related RATE_LIMIT_WINDOW_SECONDS
 RATE_LIMIT_MAX_REQUESTS=100
+
+# @var RATE_LIMIT_WINDOW_SECONDS
+# @type integer
+# @required false
+# @description Rate limit time window in seconds
+# @default 60
+# @validation Positive integer
+# @related RATE_LIMIT_MAX_REQUESTS
 RATE_LIMIT_WINDOW_SECONDS=60
 
 # ----------------------------------------------------------------------------
 # AI/ML CONFIGURATION
 # ----------------------------------------------------------------------------
-# AI model settings
+
+# @var AI_MODEL_ENDPOINT
+# @type url
+# @required false
+# @description AI model API endpoint URL
+# @example https://api.openai.com, https://api.anthropic.com
+# @validation Valid HTTPS URL
+# @related AI_MODEL_API_KEY
 AI_MODEL_ENDPOINT=<https://ai-service.example.com>
+
+# @var AI_MODEL_API_KEY
+# @type string
+# @required false
+# @description AI service API key (SENSITIVE - do not commit)
+# @example sk-abc123xyz
+# @validation Non-empty string
+# @security CRITICAL - Use environment variables or secrets manager
+# @related AI_MODEL_ENDPOINT
 AI_MODEL_API_KEY=<ai_api_key>
+
+# @var AI_MODEL_VERSION
+# @type string
+# @required false
+# @description AI model version identifier
+# @example gpt-4, claude-3-opus, llama-2-70b
+# @validation Valid model identifier
 AI_MODEL_VERSION=<model_version>
+
+# @var AI_MAX_TOKENS
+# @type integer
+# @required false
+# @description Maximum tokens for AI responses
+# @default 2048
+# @validation Positive integer, check model limits
+# @related AI_MODEL_VERSION
 AI_MAX_TOKENS=2048
+
+# @var AI_TEMPERATURE
+# @type float
+# @required false
+# @description AI response randomness (0.0-2.0)
+# @default 0.7
+# @validation Float between 0.0 and 2.0
+# @description Lower = more deterministic, Higher = more creative
 AI_TEMPERATURE=0.7
 
 # ----------------------------------------------------------------------------
 # CUSTOM SETTINGS
 # ----------------------------------------------------------------------------
-# Add your project-specific configuration below
+# Add your project-specific configuration below using the same structured
+# comment format for AI parsing.
+#
 # Example:
+# @var CUSTOM_FEATURE_X
+# @type string
+# @required false
+# @description Your custom feature description
+# @example example_value
 # CUSTOM_FEATURE_X=<value>
-# CUSTOM_INTEGRATION_Y=<api_endpoint>
 
 # ============================================================================
-# NOTES FOR DEVELOPERS
+# NOTES FOR DEVELOPERS & AI AGENTS
 # ============================================================================
+# SECURITY:
 # - Never commit actual credentials or secrets to version control
 # - Use environment-specific files (e.g., .env.local, .env.production)
-# - Document any new configuration variables in this template
 # - Consider using a secrets manager for production environments
+# - Rotate sensitive credentials regularly
+#
+# DOCUMENTATION:
+# - Document any new configuration variables using the @var annotation format
 # - Update the configuration/README.md when adding complex config sections
+# - Keep validation constraints up to date
+#
+# AI PARSING:
+# - This file is designed to be parsed by AI agents in IDEs
+# - Structured comments enable automated config generation and validation
+# - Related variables are linked via @related tags
+# - Sensitive data is marked with @security tags
 # ============================================================================
