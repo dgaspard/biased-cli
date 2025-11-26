@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { validateCommand } from "./commands/validate.js";
+import { validateCommand } from "../src/commands/validate.js";
 import fs from "fs-extra";
 import path from "node:path";
 import ora from "ora";

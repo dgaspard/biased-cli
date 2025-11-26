@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { ciCommand } from "./commands/ci.js";
+import { ciCommand } from "../src/commands/ci.js";
 import fs from "fs-extra";
 import path from "node:path";
 import ora from "ora";
