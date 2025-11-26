@@ -1,6 +1,6 @@
 {
   "name": "biased-cli",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Add the BIASED framework to any project - language-agnostic AI ceremonies and metrics",
   "bin": {
     "biased": "dist/cli.js",

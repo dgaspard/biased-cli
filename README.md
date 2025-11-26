@@ -169,6 +169,15 @@ Add the BIASED framework to your existing project in the current directory.
 ### `biased remove`
 Remove the BIASED framework from your project. This will permanently delete the `biased/` directory and all its contents. You will be prompted for confirmation.
 
+### `biased updateKnowledge`
+Convert business documentation in `biased/docs` into an AI-ready knowledge base in `biased/knowledge`.
+
+**Features:**
+- Converts Word (.docx), PowerPoint (.pptx), PDF (.pdf), Excel (.xlsx), and Text files to Markdown
+- Creates metadata placeholders for binary assets (images, etc.)
+- Synchronizes changes (updates modified files, removes deleted ones)
+- Generates a summary of your knowledge base
+
 ## Contributing
 
 PRs welcome! This tool is in active development.
@@ -179,9 +188,14 @@ MIT
 
 ## Version
 
-Current version: 0.2.0
+Current version: 0.2.4
 
 ### Changelog
+
+**0.2.3** - Knowledge Base Updates
+- Added `biased updateKnowledge` command
+- Support for converting Word, PowerPoint, PDF, Excel, and Text to Markdown
+- Knowledge base synchronization
 
 **0.2.0** - Framework-only approach
 - Removed `biased new` command
