@@ -178,6 +178,28 @@ Add the BIASED framework to your existing project in the current directory.
 **Options:**
 - `-n, --name <name>` - Project name (defaults to directory name)
 
+### `biased validate`
+Check if your project adheres to the BIASED framework structure. This command validates:
+- Existence of the `biased/` directory
+- Presence of critical files (Intent, Behavior, Eval, Governance)
+- Validity of JSON configuration files
+
+**Usage:**
+```bash
+biased validate
+```
+
+### `biased ci`
+Generate a GitHub Actions workflow (`.github/workflows/biased-eval.yml`) to automate your BIASED evaluation pipeline. This workflow will:
+- Run on push and pull requests
+- Validate framework structure
+- Run your project's tests
+
+**Usage:**
+```bash
+biased ci
+```
+
 ### `biased remove`
 Remove the BIASED framework from your project. This will permanently delete the `biased/` directory and all its contents. You will be prompted for confirmation.
 
