@@ -1,3 +1,14 @@
+<!--
+AI AGENT METADATA:
+@purpose: Centralize brand identity guidelines, assets, and voice/tone standards.
+@audience: Designers, frontend developers, AI agents generating UI/content
+@format: Directory of brand resources
+@required_sections: Brand Assets, Color Palette, Typography, Voice & Tone
+@related_files: ["biased/docs/branding/brand-guide-template.md", "biased/intent/intent.md (brand aligns with intent)"]
+@update_frequency: Update when brand guidelines change
+@instructions: AI agents should use these guidelines when generating text (voice/tone) or UI components (colors/typography).
+-->
+
 # Branding Guidelines
 
 This folder contains brand identity and style guidelines for {{PROJECT_NAME}}.

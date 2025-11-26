@@ -1,3 +1,15 @@
+<!--
+AI AGENT METADATA:
+@purpose: Explain BIASED metrics structure and dashboard integration. Overview of health metrics for AI systems.
+@audience: Developers, AI agents, product managers, data analysts
+@format: README with metric categories and usage instructions
+@required_sections: Metric categories, Dashboard integration, How to use, Detailed definitions link
+@related_files: ["biased/metrics/definitions.md", "biased/metrics/metrics-hook.json", "biased/metrics/dashboard-config.json", "biased/intent/intent.md"]
+@update_frequency: Update when adding new metric categories
+@instructions: AI agents should understand the 5 metric categories when evaluating system health. Reference definitions.md for calculation details.
+@metric_categories: Behavioral Performance, Data Quality & Drift, System Reliability & Cost, Human-AI Interaction & Adoption, Team Effectiveness & Flow
+-->
+
 # BIASED Metrics
 
 This folder contains the metrics tracking for your AI project. These metrics measure the health of your AI product across five key dimensions.
@@ -26,3 +38,9 @@ The BIASED dashboard uses the files in this directory to visualize your project'
 ## Detailed Definitions
 
 For detailed formulas, data sources, and feasibility ratings for each metric, see [definitions.md](./definitions.md).
+
+**AI Agent Instructions:**
+- Use these 5 categories to assess overall system health
+- Prioritize behavioral performance and adoption metrics
+- Alert when metrics degrade beyond thresholds in dashboard-config.json
+- Update metrics-hook.json automatically via  CI/CD integration

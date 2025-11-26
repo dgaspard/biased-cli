@@ -1,1 +1,6 @@
+# AI METADATA: purpose=Track model behavior drift over time, format=CSV with date/metric/value columns, related=biased/intent/intent.md (success metrics), biased/eval/eval-config.json (target values)
+# Instructions: Add row for each eval run. Compare trends to detect drift. Alert if metrics degrade beyond thresholds.
+# Columns: date (YYYY-MM-DD), metric (string matching eval-config.json), value (numeric 0-1)
 date,metric,value
+2025-11-24,hallucination_rate,0.02
+2025-11-24,risk_clause_recall,0.96

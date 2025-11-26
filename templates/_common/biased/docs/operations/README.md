@@ -1,3 +1,14 @@
+<!--
+AI AGENT METADATA:
+@purpose: Store runbooks, incident response guides, and maintenance procedures.
+@audience: DevOps, SREs, on-call engineers, AI agents
+@format: Directory of operational guides
+@required_sections: Runbooks, Incident Response, Maintenance
+@related_files: ["biased/metrics/metrics-hook.json (monitoring)", "biased/governance/risk-register.md (operational risks)"]
+@update_frequency: Update after incidents or infrastructure changes
+@instructions: AI agents should reference runbooks when suggesting remediation for system alerts.
+-->
+
 # Operations Documentation
 
 This folder contains operational procedures, maintenance guides, and runbooks for {{PROJECT_NAME}}.

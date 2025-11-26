@@ -1,4 +1,18 @@
 {
+  "_ai_metadata": {
+    "purpose": "Weekly snapshot of key metrics. Simplified tracking for quick health checks.",
+    "schema_version": "1.0",
+    "required_fields": [
+      "week_start"
+    ],
+    "related_files": [
+      "biased/metrics/metrics-hook.json (comprehensive metrics)",
+      "biased/metrics/definitions.md (metric formulas)",
+      "biased/eval/drift-history.csv (historical trends)"
+    ],
+    "instructions": "AI agents should update this weekly with latest eval results. Use null for metrics not yet collected. Compare week-over-week for trends.",
+    "update_frequency": "Weekly"
+  },
   "week_start": "2025-11-24",
   "behavior_accuracy": null,
   "consistency_score": null,

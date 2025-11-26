@@ -1,4 +1,26 @@
 {
+    "_ai_metadata": {
+        "purpose": "Dashboard data hook. Contains all metrics across 5 categories for BIASED dashboard visualization.",
+        "schema_version": "1.0",
+        "required_fields": [
+            "metadata",
+            "metrics"
+        ],
+        "metric_categories": [
+            "behavioralPerformance",
+            "dataQualityAndDrift",
+            "systemReliabilityAndCost",
+            "humanAiInteraction",
+            "teamEffectiveness"
+        ],
+        "related_files": [
+            "biased/metrics/definitions.md",
+            "biased/metrics/dashboard-config.json",
+            "biased/intent/intent.md"
+        ],
+        "instructions": "AI agents or CI/CD pipelines should update this file with latest metric values. BIASED dashboard reads from this file. Update lastUpdated timestamp on each change.",
+        "update_method": "Automated via CI/CD or application telemetry"
+    },
     "metadata": {
         "lastUpdated": "2024-01-01T00:00:00Z",
         "environment": "production",

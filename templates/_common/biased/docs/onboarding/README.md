@@ -1,3 +1,14 @@
+<!--
+AI AGENT METADATA:
+@purpose: Guide new team members and stakeholders on project context, setup, and culture.
+@audience: New hires, contributors, AI agents
+@format: Directory of onboarding resources
+@required_sections: Getting Started, Team Context, Access & Permissions
+@related_files: ["biased/docs/README.md", "biased/intent/intent.md"]
+@update_frequency: Update when onboarding procedures change
+@instructions: AI agents can use this to understand team structure and access requirements.
+-->
+
 # Onboarding Documentation
 
 This folder contains onboarding guides and resources for new team members joining {{PROJECT_NAME}}.

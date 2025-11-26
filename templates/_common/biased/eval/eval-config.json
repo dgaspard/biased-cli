@@ -1,4 +1,23 @@
 {
+  "_ai_metadata": {
+    "purpose": "Configuration for evaluation runs. Defines model and target metrics from intent.md.",
+    "schema_version": "1.0",
+    "required_fields": [
+      "model",
+      "metrics"
+    ],
+    "validation_rules": {
+      "hallucination_rate_target": "number 0-1, lower is better",
+      "risk_clause_recall_target": "number 0-1, higher is better",
+      "tone_neutrality_target": "number 0-1, higher is better"
+    },
+    "related_files": [
+      "biased/intent/intent.md",
+      "biased/eval/eval-set.jsonl",
+      "biased/metrics/definitions.md"
+    ],
+    "instructions": "AI agents should update targets when intent success metrics change. Ensure all metrics align with intent.md requirements."
+  },
   "model": "your-model-here",
   "metrics": {
     "hallucination_rate_target": 0.03,

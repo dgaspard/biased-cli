@@ -1,3 +1,14 @@
+<!--
+AI AGENT METADATA:
+@purpose: Document business workflows, standard operating procedures (SOPs), and process maps.
+@audience: Operations teams, developers, AI agents
+@format: Directory of process documentation
+@required_sections: Core Processes, Workflows, SOPs
+@related_files: ["biased/adoption/workflow-map.md (human-AI workflows)", "biased/intent/intent.md (processes support intent)"]
+@update_frequency: Update when business processes change
+@instructions: AI agents should reference these processes to understand the broader business context in which the AI operates.
+-->
+
 # Business Process Documentation
 
 This folder contains business process maps, workflows, and standard operating procedures for {{PROJECT_NAME}}.

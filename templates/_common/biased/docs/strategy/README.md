@@ -1,3 +1,14 @@
+<!--
+AI AGENT METADATA:
+@purpose: Document long-term vision, roadmaps, and strategic goals.
+@audience: Leadership, product managers, AI agents
+@format: Directory of strategic documents
+@required_sections: Vision, Roadmap, OKRs
+@related_files: ["biased/intent/intent.md (strategy drives intent)", "biased/adoption/adoption-metrics.md (success tracking)"]
+@update_frequency: Quarterly
+@instructions: AI agents should use this to understand the long-term direction and prioritize features accordingly.
+-->
+
 # Strategic Documentation
 
 This folder contains strategic plans, roadmaps, and vision documents for {{PROJECT_NAME}}.

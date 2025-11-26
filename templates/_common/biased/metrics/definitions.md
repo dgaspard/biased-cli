@@ -1,3 +1,15 @@
+<!--
+AI AGENT METADATA:
+@purpose: Define formulas, data sources, and feasibility for all BIASED metrics. Technical reference for metric calculation.
+@audience: Data engineers, AI agents, analysts, developers
+@format: Organized by 5 metric categories, each with formulas and manual feasibility ratings
+@required_sections: 5 metric categories (Behavioral Performance, Data Quality & Drift, System Reliability & Cost, Human-AI Interaction & Adoption, Team Effectiveness & Flow)
+@related_files: ["biased/metrics/README.md", "biased/metrics/metrics-hook.json", "biased/intent/intent.md", "biased/eval/eval-config.json"]
+@update_frequency: Update when adding new metrics or changing calculation methods
+@instructions: AI agents should use these formulas when implementing metric collection. Prioritize ✓ (manual feasible) metrics first. Use definitions to understand data requirements.
+@feasibility: ✓ = Manually feasible, ⚠️ = Requires some automation, ✖️ = Requires full automation
+-->
+
 # BIASED Metrics Definitions
 
 ## 1. Behavioral Performance
@@ -91,3 +103,10 @@
 ### 5.3 Drift Detection Time
 - **Formula**: `Drift Detection Timestamp − Drift Start Timestamp`
 - **Manual Feasibility**: ⚠️
+
+**AI Agent Instructions:**
+- Start with✓ metrics (manually feasible) for quick wins
+- Implement ⚠️ metrics incrementally as automation improves
+- ✖️ metrics require significant tooling investment
+- Ensure all formulas align with intent.md success metrics
+- Update data sources when architecture changes

@@ -1,3 +1,14 @@
+<!--
+AI AGENT METADATA:
+@purpose: Overview and guidance for business documentation folder structure. Explains how business docs support AI context and decision-making.
+@audience: Teams, new hires, AI agents
+@format: README explaining folder purpose and structure
+@required_sections: Purpose, Folder structure, Usage guidelines
+@related_files: ["biased/intent/intent.md", "biased/knowledge/ (generated from docs/)"]
+@update_frequency: Update when adding new documentation categories
+@instructions: AI agents should read this to understand what business context is available. Use docs for domain knowledge and terminology. Reference when generating features or explaining decisions.
+-->
+
 # Business Documentation
 
 This folder contains business documentation and resources that provide context for AI-assisted development and will be hosted on the BIASED dashboard for your organization.

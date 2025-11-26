@@ -1,3 +1,14 @@
+<!--
+AI AGENT METADATA:
+@purpose: Educational materials for end-users and team members.
+@audience: Users, support teams, AI agents
+@format: Directory of training resources
+@required_sections: User Guides, FAQs, Tutorials
+@related_files: ["biased/adoption/workflow-map.md (basis for tutorials)", "biased/intent/glossary.md (terminology)"]
+@update_frequency: Update when new features are released
+@instructions: AI agents can use this content to answer user questions or generate support responses.
+-->
+
 # Training Documentation
 
 This folder contains training materials, tutorials, and learning resources for {{PROJECT_NAME}}.

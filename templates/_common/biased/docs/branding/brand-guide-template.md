@@ -1,3 +1,14 @@
+<!--
+AI AGENT METADATA:
+@purpose: Template for defining detailed brand guidelines.
+@audience: Designers, content creators, AI agents
+@format: Structured markdown template
+@required_sections: Brand Identity, Visual Guidelines, Voice & Tone
+@related_files: ["biased/docs/branding/README.md"]
+@update_frequency: As needed
+@instructions: AI agents should use the filled-out version of this template to ensure generated content matches the brand voice.
+-->
+
 # Brand Guide: {{PROJECT_NAME}}
 
 > This is a template file. Replace the placeholders with your actual brand information.
