@@ -152,6 +152,22 @@ program
             }
             return;
         }
+        // .NET/C# detection
+        if (await fs.pathExists(path.join(cwd, "*.csproj")) ||
+            await fs.pathExists(path.join(cwd, "*.sln")) ||
+            (await glob("*.csproj", { cwd })).length > 0 ||
+            (await glob("*.sln", { cwd })).length > 0) {
+            spinner.text = ".NET project detected. Installing SpecFlow...";
+            try {
+                execSync("dotnet add package SpecFlow", { stdio: "inherit", cwd });
+                spinner.succeed(chalk.green("SpecFlow installed for .NET!"));
+                console.log(chalk.gray("\n💡 Create .feature files in biased/eval/ to get started\n"));
+            }
+            catch (e) {
+                spinner.fail(chalk.yellow("Failed to install SpecFlow. Try: dotnet add package SpecFlow"));
+            }
+            return;
+        }
         // Java detection
         if (await fs.pathExists(path.join(cwd, "pom.xml")) ||
             await fs.pathExists(path.join(cwd, "build.gradle")) ||

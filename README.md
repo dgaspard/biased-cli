@@ -183,6 +183,7 @@ Install BDD (Behavior-Driven Development) testing dependencies for your project.
 
 - **Node.js**: Installs `@cucumber/cucumber`
 - **Python**: Installs `behave`
+- **.NET/C#**: Installs `SpecFlow`
 - **Java**: Provides Maven/Gradle instructions for `cucumber-java`
 - **Other**: Displays manual installation instructions
 
@@ -205,7 +206,7 @@ Current version: 0.3.0
 **0.3.0** - BDD Support and Knowledge Auto-Generation
 - Added `biased install-bdd` command for opt-in BDD tooling
 - Auto-run `updateKnowledge` during `biased init`
-- Multi-language BDD support (Node.js, Python, Java)
+- Multi-language BDD support (Node.js, Python, .NET, Java)
 
 **0.2.3** - Knowledge Base Updates
 - Added `biased updateKnowledge` command
