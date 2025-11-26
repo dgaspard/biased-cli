@@ -115,4 +115,11 @@ program
         process.exit(1);
     }
 });
+import { updateKnowledgeCommand } from "./commands/update-knowledge.js";
+program
+    .command("updateKnowledge")
+    .description("Convert business docs to AI-ready knowledge base")
+    .action(async () => {
+    await updateKnowledgeCommand();
+});
 program.parse(process.argv);
