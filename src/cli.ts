@@ -7,6 +7,8 @@ import fs from "fs-extra";
 import { glob } from "glob";
 import inquirer from "inquirer";
 import { fileURLToPath } from "node:url";
+import { execSync } from "node:child_process";
+import { updateKnowledgeCommand } from "./commands/update-knowledge.js";
 
 const program = new Command();
 program
@@ -74,6 +76,11 @@ program
     try {
       await copyTemplate("_common", cwd, { PROJECT_NAME: name });
       spinner.succeed(chalk.green("BIASED framework added successfully!"));
+
+      // Auto-update knowledge base
+      console.log(chalk.blue("\nGenerating initial knowledge base..."));
+      await updateKnowledgeCommand();
+
       console.log(chalk.bold.blue("\n📚 BIASED Framework Structure:\n"));
       console.log(chalk.cyan("  biased/intent/         - Define project intent and goals"));
       console.log(chalk.cyan("  biased/behavior/       - Specify expected behaviors"));
@@ -82,8 +89,10 @@ program
       console.log(chalk.cyan("  biased/governance/     - Governance and risk management"));
       console.log(chalk.cyan("  biased/adoption/       - Adoption metrics and workflows"));
       console.log(chalk.cyan("  biased/docs/           - Business documentation"));
-      console.log(chalk.cyan("  biased/metrics/        - Metrics tracking\n"));
-      console.log(chalk.gray("💡 Start by editing biased/intent/intent.md\n"));
+      console.log(chalk.cyan("  biased/metrics/        - Metrics tracking"));
+      console.log(chalk.cyan("  biased/knowledge/      - AI-ready knowledge base (Auto-generated)\n"));
+      console.log(chalk.gray("💡 Start by editing biased/intent/intent.md"));
+      console.log(chalk.gray("💡 Run 'biased install-bdd' to add BDD testing support\n"));
     } catch (e: any) {
       spinner.fail(e.message);
       process.exit(1);
@@ -130,7 +139,70 @@ program
     }
   });
 
-import { updateKnowledgeCommand } from "./commands/update-knowledge.js";
+
+
+program
+  .command("install-bdd")
+  .description("Install BDD testing dependencies for your project")
+  .action(async () => {
+    const cwd = process.cwd();
+    const spinner = ora("Detecting project type...").start();
+
+    try {
+      // Node.js detection
+      if (await fs.pathExists(path.join(cwd, "package.json"))) {
+        spinner.text = "Node.js project detected. Installing Cucumber...";
+        execSync("npm install --save-dev @cucumber/cucumber", { stdio: "inherit", cwd });
+        spinner.succeed(chalk.green("Cucumber installed for Node.js!"));
+        console.log(chalk.gray("\n💡 Create .feature files in biased/eval/ to get started\n"));
+        return;
+      }
+
+      // Python detection
+      if (await fs.pathExists(path.join(cwd, "requirements.txt")) ||
+        await fs.pathExists(path.join(cwd, "setup.py")) ||
+        await fs.pathExists(path.join(cwd, "pyproject.toml"))) {
+        spinner.text = "Python project detected. Installing behave...";
+        try {
+          execSync("pip install behave", { stdio: "inherit", cwd });
+          spinner.succeed(chalk.green("Behave installed for Python!"));
+          console.log(chalk.gray("\n💡 Create .feature files in biased/eval/ to get started\n"));
+        } catch (e) {
+          spinner.fail(chalk.yellow("Failed to install behave. Try: pip install behave"));
+        }
+        return;
+      }
+
+      // Java detection
+      if (await fs.pathExists(path.join(cwd, "pom.xml")) ||
+        await fs.pathExists(path.join(cwd, "build.gradle")) ||
+        await fs.pathExists(path.join(cwd, "build.gradle.kts"))) {
+        spinner.info(chalk.blue("Java project detected."));
+        console.log(chalk.bold("\n📘 Add Cucumber to your project:\n"));
+        console.log(chalk.cyan("Maven:"));
+        console.log(chalk.gray(`  <dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-java</artifactId>
+    <version>7.14.0</version>
+    <scope>test</scope>
+  </dependency>\n`));
+        console.log(chalk.cyan("Gradle:"));
+        console.log(chalk.gray(`  testImplementation 'io.cucumber:cucumber-java:7.14.0'\n`));
+        return;
+      }
+
+      // Unsupported
+      spinner.fail(chalk.yellow("Could not detect project type."));
+      console.log(chalk.bold("\n📘 Manual BDD Installation:\n"));
+      console.log(chalk.cyan("  Node.js:  npm install --save-dev @cucumber/cucumber"));
+      console.log(chalk.cyan("  Python:   pip install behave"));
+      console.log(chalk.cyan("  Java:     See https://cucumber.io/docs/installation/java/"));
+      console.log(chalk.cyan("  C#:       dotnet add package SpecFlow\n"));
+    } catch (e: any) {
+      spinner.fail(chalk.red(`Installation failed: ${e.message}`));
+      process.exit(1);
+    }
+  });
 
 program
   .command("updateKnowledge")

@@ -116,6 +116,15 @@ Each folder includes comprehensive README templates to guide you in creating you
 - **Knowledge Base**: Centralizes business knowledge for team reference
 - **Dashboard Integration**: Ready for hosting on the BIASED dashboard
 
+### `biased updateKnowledge`
+Convert business documentation in `biased/docs` into an AI-ready knowledge base in `biased/knowledge`. AI Agents and CI/CD pipelines will ignore the docs directory. Agent will reference files in the knowledge folder for context. This command is run automatically when you run `biased init`.
+
+**Features:**
+- Converts Word (.docx), PowerPoint (.pptx), PDF (.pdf), Excel (.xlsx), and Text files to Markdown
+- Creates metadata placeholders for binary assets (images, etc.)
+- Synchronizes changes (updates modified files, removes deleted ones)
+- Generates a summary of your knowledge base
+
 ## Getting Started
 
 After initializing BIASED in your project:
@@ -169,14 +178,15 @@ Add the BIASED framework to your existing project in the current directory.
 ### `biased remove`
 Remove the BIASED framework from your project. This will permanently delete the `biased/` directory and all its contents. You will be prompted for confirmation.
 
-### `biased updateKnowledge`
-Convert business documentation in `biased/docs` into an AI-ready knowledge base in `biased/knowledge`.
+### `biased install-bdd`
+Install BDD (Behavior-Driven Development) testing dependencies for your project. The command detects your project type and installs the appropriate tools:
 
-**Features:**
-- Converts Word (.docx), PowerPoint (.pptx), PDF (.pdf), Excel (.xlsx), and Text files to Markdown
-- Creates metadata placeholders for binary assets (images, etc.)
-- Synchronizes changes (updates modified files, removes deleted ones)
-- Generates a summary of your knowledge base
+- **Node.js**: Installs `@cucumber/cucumber`
+- **Python**: Installs `behave`
+- **Java**: Provides Maven/Gradle instructions for `cucumber-java`
+- **Other**: Displays manual installation instructions
+
+This is an opt-in command that encourages BDD practices without forcing dependencies.
 
 ## Contributing
 
@@ -188,9 +198,14 @@ MIT
 
 ## Version
 
-Current version: 0.2.4
+Current version: 0.3.0
 
 ### Changelog
+
+**0.3.0** - BDD Support and Knowledge Auto-Generation
+- Added `biased install-bdd` command for opt-in BDD tooling
+- Auto-run `updateKnowledge` during `biased init`
+- Multi-language BDD support (Node.js, Python, Java)
 
 **0.2.3** - Knowledge Base Updates
 - Added `biased updateKnowledge` command
