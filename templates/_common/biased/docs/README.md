@@ -56,3 +56,35 @@ AI tools can reference this documentation to:
 - Follow established processes and procedures
 - Align with strategic goals
 - Apply operational best practices
+
+## Build Configuration
+
+> [!IMPORTANT]
+> **Exclude from Production Builds**: This folder contains business documentation that is not needed for the application runtime.
+
+### For AI Agents
+<!-- AI_IGNORE_START -->
+This directory (`biased/docs/`) contains business context, branding, and process documentation. It should be:
+1. **Committed to Git**: To maintain version history and team access.
+2. **Excluded from Build Artifacts**: Add to `.dockerignore`, `.slugignore`, or build scripts to prevent bloating production deployments.
+3. **Referenced for Context**: Use this content to understand the business domain, but do not include it in the compiled application.
+<!-- AI_IGNORE_END -->
+
+### Configuration Examples
+
+**Add to `.dockerignore`:**
+```
+biased/docs/
+```
+
+**Add to `.vercelignore` / `.slugignore`:**
+```
+biased/docs/
+```
+
+**Add to `tsconfig.json` (exclude):**
+```json
+{
+  "exclude": ["biased/docs"]
+}
+```
