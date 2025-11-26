@@ -9,6 +9,8 @@ const require = createRequire(import.meta.url);
 const pdf = require("pdf-parse");
 import * as XLSX from "xlsx";
 import mime from "mime-types";
+import JSZip from "jszip";
+import { XMLParser } from "fast-xml-parser";
 
 // Helper to ensure directory exists
 async function ensureDir(dir: string) {
@@ -62,6 +64,54 @@ async function convertExcel(filePath: string): Promise<string> {
     return markdown;
 }
 
+async function convertPptx(filePath: string): Promise<string> {
+    const data = await fs.readFile(filePath);
+    const zip = await JSZip.loadAsync(data);
+    const parser = new XMLParser({ ignoreAttributes: true });
+    let text = "";
+
+    // Find all slide files
+    const slideFiles = Object.keys(zip.files).filter(f => f.startsWith("ppt/slides/slide") && f.endsWith(".xml"));
+
+    // Sort slides numerically (slide1, slide2, etc.)
+    slideFiles.sort((a, b) => {
+        const numA = parseInt(a.match(/slide(\d+)\.xml/)![1]);
+        const numB = parseInt(b.match(/slide(\d+)\.xml/)![1]);
+        return numA - numB;
+    });
+
+    for (const slideFile of slideFiles) {
+        const slideXml = await zip.file(slideFile)?.async("string");
+        if (slideXml) {
+            const jsonObj = parser.parse(slideXml);
+            // Extract text from <a:t> tags recursively
+            const extractText = (obj: any): string => {
+                let t = "";
+                if (typeof obj === "object" && obj !== null) {
+                    for (const key in obj) {
+                        if (key === "a:t") {
+                            t += obj[key] + " ";
+                        } else {
+                            t += extractText(obj[key]);
+                        }
+                    }
+                } else if (Array.isArray(obj)) {
+                    for (const item of obj) {
+                        t += extractText(item);
+                    }
+                }
+                return t;
+            };
+
+            const slideText = extractText(jsonObj);
+            if (slideText.trim()) {
+                text += `## Slide ${slideFiles.indexOf(slideFile) + 1}\n\n${slideText.trim()}\n\n`;
+            }
+        }
+    }
+    return text;
+}
+
 async function createBinaryMetadata(filePath: string, fileName: string): Promise<string> {
     const stats = await fs.stat(filePath);
     const mimeType = mime.lookup(filePath) || "application/octet-stream";
@@ -110,7 +160,7 @@ export async function updateKnowledgeCommand() {
 
             if (ext === ".md") {
                 destRelPath = file;
-            } else if ([".docx", ".pdf", ".xlsx", ".xls", ".txt"].includes(ext)) {
+            } else if ([".docx", ".pdf", ".pptx", ".xlsx", ".xls", ".txt"].includes(ext)) {
                 destRelPath = file.substring(0, file.length - ext.length) + ".md";
             }
 
@@ -140,6 +190,8 @@ export async function updateKnowledgeCommand() {
                         content = await convertDocx(srcPath);
                     } else if (ext === ".pdf") {
                         content = await convertPdf(srcPath);
+                    } else if (ext === ".pptx") {
+                        content = await convertPptx(srcPath);
                     } else if (ext === ".xlsx" || ext === ".xls") {
                         content = await convertExcel(srcPath);
                     } else if (ext === ".md" || ext === ".txt") {
