@@ -1,0 +1,125 @@
+# ============================================================================
+# BIASED Framework - Application Configuration Template
+# ============================================================================
+# 
+# HOW TO USE THIS FILE:
+# 1. Copy this file and rename it to match your project's config format:
+#    - Node.js/JavaScript:  .env or config.js
+#    - Java:                application.properties
+#    - .NET:                appsettings.json
+#    - Python:              config.py or .env
+#    - Generic:             config.yaml or config.json
+#
+# 2. Replace placeholder values (shown in <angle_brackets>) with actual values
+# 3. Add this file to .gitignore to prevent committing sensitive data
+# 4. Document any new configuration in this template for team reference
+#
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# APPLICATION SETTINGS
+# ----------------------------------------------------------------------------
+APP_NAME=<your_application_name>
+APP_VERSION=1.0.0
+ENVIRONMENT=<development|staging|production>
+
+# ----------------------------------------------------------------------------
+# DATABASE CONFIGURATION
+# ----------------------------------------------------------------------------
+# Database connection details
+DATABASE_HOST=<database_host_url>
+DATABASE_PORT=<5432|3306|1433|27017>
+DATABASE_NAME=<database_name>
+DATABASE_USER=<database_username>
+DATABASE_PASSWORD=<database_password>
+
+# Connection pool settings (optional)
+DATABASE_POOL_MIN=2
+DATABASE_POOL_MAX=10
+
+# ----------------------------------------------------------------------------
+# API CONFIGURATION
+# ----------------------------------------------------------------------------
+# External API endpoints
+API_BASE_URL=<https://api.example.com>
+API_KEY=<your_api_key>
+API_SECRET=<your_api_secret>
+API_TIMEOUT_SECONDS=30
+
+# ----------------------------------------------------------------------------
+# AUTHENTICATION & SECURITY
+# ----------------------------------------------------------------------------
+JWT_SECRET=<your_jwt_secret_key>
+SESSION_SECRET=<your_session_secret>
+ENCRYPTION_KEY=<your_encryption_key>
+
+# Token expiration (in seconds)
+ACCESS_TOKEN_EXPIRY=3600
+REFRESH_TOKEN_EXPIRY=604800
+
+# ----------------------------------------------------------------------------
+# SERVICE ENDPOINTS
+# ----------------------------------------------------------------------------
+# Third-party service integrations
+EMAIL_SERVICE_URL=<smtp.example.com>
+EMAIL_SERVICE_PORT=587
+EMAIL_FROM_ADDRESS=<noreply@example.com>
+
+PAYMENT_GATEWAY_URL=<https://payment.example.com>
+PAYMENT_API_KEY=<payment_api_key>
+
+# ----------------------------------------------------------------------------
+# FEATURE FLAGS
+# ----------------------------------------------------------------------------
+# Enable/disable features
+FEATURE_AI_ASSISTANT=true
+FEATURE_ANALYTICS=true
+FEATURE_BETA_FEATURES=false
+
+# ----------------------------------------------------------------------------
+# LOGGING & MONITORING
+# ----------------------------------------------------------------------------
+LOG_LEVEL=<debug|info|warn|error>
+LOG_FORMAT=<json|text>
+
+# Monitoring service
+MONITORING_ENABLED=true
+MONITORING_API_KEY=<monitoring_service_key>
+
+# ----------------------------------------------------------------------------
+# PERFORMANCE SETTINGS
+# ----------------------------------------------------------------------------
+CACHE_ENABLED=true
+CACHE_TTL_SECONDS=3600
+
+RATE_LIMIT_ENABLED=true
+RATE_LIMIT_MAX_REQUESTS=100
+RATE_LIMIT_WINDOW_SECONDS=60
+
+# ----------------------------------------------------------------------------
+# AI/ML CONFIGURATION
+# ----------------------------------------------------------------------------
+# AI model settings
+AI_MODEL_ENDPOINT=<https://ai-service.example.com>
+AI_MODEL_API_KEY=<ai_api_key>
+AI_MODEL_VERSION=<model_version>
+AI_MAX_TOKENS=2048
+AI_TEMPERATURE=0.7
+
+# ----------------------------------------------------------------------------
+# CUSTOM SETTINGS
+# ----------------------------------------------------------------------------
+# Add your project-specific configuration below
+# Example:
+# CUSTOM_FEATURE_X=<value>
+# CUSTOM_INTEGRATION_Y=<api_endpoint>
+
+# ============================================================================
+# NOTES FOR DEVELOPERS
+# ============================================================================
+# - Never commit actual credentials or secrets to version control
+# - Use environment-specific files (e.g., .env.local, .env.production)
+# - Document any new configuration variables in this template
+# - Consider using a secrets manager for production environments
+# - Update the configuration/README.md when adding complex config sections
+# ============================================================================

@@ -89,6 +89,9 @@ your-project/
 │   │   ├── onboarding/      # New hire guides
 │   │   ├── operations/      # Runbooks, procedures
 │   │   └── training/        # Training materials
+│   ├── configuration/       # Application configuration
+│   │   ├── README.md        # Configuration guide
+│   │   └── app.properties.template
 │   └── metrics/             # Metrics tracking
 │       └── weekly-metrics.json
 └── [your existing project files]
