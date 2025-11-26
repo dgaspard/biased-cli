@@ -105,7 +105,15 @@ export async function updateKnowledgeCommand() {
 
         for (const file of files) {
             const srcPath = path.join(docsDir, file);
-            const destRelPath = file + ".md"; // Append .md to everything for simplicity in knowledge base
+            const ext = path.extname(file).toLowerCase();
+            let destRelPath = file + ".md"; // Default for binary/unknown
+
+            if (ext === ".md") {
+                destRelPath = file;
+            } else if ([".docx", ".pdf", ".xlsx", ".xls", ".txt"].includes(ext)) {
+                destRelPath = file.substring(0, file.length - ext.length) + ".md";
+            }
+
             const destPath = path.join(knowledgeDir, destRelPath);
 
             await ensureDir(path.dirname(destPath));
