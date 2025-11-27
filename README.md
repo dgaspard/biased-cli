@@ -1,230 +1,153 @@
 # biased-cli
 
-**BIASED CLI** - Add the BIASED framework to any project, regardless of language or tech stack.
+**BIASED CLI** - The standard for AI-ready software engineering.
 
 ## What is BIASED?
 
-BIASED is a framework for AI-ready software development that provides structure for:
-- **Intent** - Define what your AI should accomplish
-- **Behavior** - Specify expected AI behaviors
-- **Evaluation** - Test and measure AI performance
-- **Architecture** - Document AI system design
-- **Governance** - Manage AI risks and compliance
-- **Adoption** - Track AI adoption and UX
-- **Documentation** - Store business context for AI
-- **Metrics** - Monitor AI system health
+BIASED is a **governance-first framework** designed to bridge the gap between traditional software engineering and AI engineering. It provides a standardized structure for building, testing, and monitoring AI systems, ensuring they are:
+
+- **Intentional**: Clearly defined goals and boundaries
+- **Reliable**: Tested behaviors and edge cases
+- **Observable**: Built-in metrics and drift detection
+- **Compliant**: Governance and risk management from day one
+
+The framework is **language-agnostic** and works with any tech stack (Node.js, Python, Java, .NET, etc.). It doesn't replace your code; it wraps it in a layer of professional engineering practices.
+
+### The BIASED Acronym
+
+- **B**ehavior: What should the AI do? (Specs, BDD tests)
+- **I**ntent: Why are we building this? (Goals, non-goals)
+- **A**rchitecture: How is it built? (RAG flow, system design)
+- **S**trategy: How does it fit the business? (Roadmap, KPIs)
+- **E**valuation: How do we know it works? (Eval sets, metrics)
+- **D**ocumentation: What does the AI need to know? (Context, branding)
 
 ## Quick Start
 
-Add the BIASED framework to your existing project:
+You don't need to install anything. Run the CLI directly with `npx`:
 
 ```bash
 npx biased-cli init
 ```
 
-This creates a `biased/` folder with the complete framework structure in your current directory.
+This creates a `biased/` folder in your current directory with the complete framework structure.
 
-## Installation
+## Commands
 
-### One-time use (recommended)
+All commands can be run using `npx biased-cli <command>` (no installation required) or `biased <command>` (if installed globally).
+
+### `init`
+Initializes the BIASED framework in your project.
+
 ```bash
 npx biased-cli init
+# OR
+npx biased-cli init --name "My Project"
 ```
 
-### Global installation
-```bash
-npm install -g biased-cli
-biased init
-```
+- Creates the `biased/` directory structure
+- Generates template files (Intent, Behavior, Governance, etc.)
+- Auto-runs `update-knowledge` to process documentation
+- Auto-runs `ci` to set up GitHub Actions
 
-## Usage
-
-### Initialize BIASED Framework
-
-Run this command in your project root directory:
+### `validate`
+Validates that your project adheres to the BIASED framework standards.
 
 ```bash
-biased init
+npx biased-cli validate
 ```
 
-**Options:**
-- `-n, --name <name>` - Specify project name (defaults to directory name)
+- Checks for required files and directories
+- Validates JSON configuration syntax
+- Ensures governance artifacts are present
+- Useful for CI/CD pipelines to enforce standards
 
-**Example:**
+### `update-knowledge`
+Converts your business documentation into an AI-optimized knowledge base.
+
 ```bash
-cd my-existing-project
-biased init --name "My AI Project"
+npx biased-cli update-knowledge
 ```
+
+- Reads from `biased/docs/` (Word, PDF, Excel, PPTX, Text)
+- Converts everything to Markdown in `biased/knowledge/`
+- Updates the knowledge base summary
+- **Note**: AI agents should read from `biased/knowledge/`, not `biased/docs/`.
+
+### `install-bdd`
+Sets up Behavior-Driven Development (BDD) testing for your specific language.
+
+```bash
+npx biased-cli install-bdd
+```
+
+- Detects your project language (Node.js, Python, C#, Java)
+- Installs appropriate BDD tools (Cucumber, Behave, SpecFlow)
+- Configures test runners
+- Creates sample feature files
+
+### `ci`
+Generates a GitHub Actions workflow for continuous evaluation.
+
+```bash
+npx biased-cli ci
+```
+
+- Creates `.github/workflows/biased-eval.yml`
+- Configures automated validation on Pull Requests
+- Sets up a baseline for AI evaluation pipelines
+
+### `remove`
+Removes the BIASED framework from your project.
+
+```bash
+npx biased-cli remove
+```
+
+- Deletes the `biased/` directory
+- Removes all framework artifacts
+- **Warning**: This action is irreversible.
 
 ## Framework Structure
 
-After running `biased init`, you'll have:
+After initialization, your project will have:
 
 ```
 your-project/
 ├── biased/
-│   ├── intent/              # Intent statements
-│   │   ├── intent.md
-│   │   └── glossary.md
-│   ├── behavior/            # Behavior specifications
-│   │   ├── behavior-spec.md
-│   │   └── edge-cases.md
-│   ├── eval/                # Evaluation sets & drift history
-│   │   ├── eval-set.jsonl
-│   │   ├── eval-config.json
-│   │   └── drift-history.csv
-│   ├── architecture/        # Architecture decisions
-│   │   ├── architecture.md
-│   │   └── rag-plan.md
-│   ├── governance/          # Governance cards
-│   │   ├── governance-card.md
-│   │   └── risk-register.md
-│   ├── adoption/            # Adoption & UX artifacts
-│   │   ├── adoption-metrics.md
-│   │   └── workflow-map.md
-│   ├── docs/                # Business documentation
-│   │   ├── branding/        # Brand guides, style guidelines
-│   │   ├── business-process/# Process maps, SOPs
-│   │   ├── strategy/        # Strategic plans, roadmaps
-│   │   ├── onboarding/      # New hire guides
-│   │   ├── operations/      # Runbooks, procedures
-│   │   └── training/        # Training materials
-│   ├── configuration/       # Application configuration
-│   │   ├── README.md        # Configuration guide
-│   │   └── app.properties.template
-│   └── metrics/             # Metrics tracking
-│       └── weekly-metrics.json
-└── [your existing project files]
+│   ├── intent/              # Why: Intent statements, glossary
+│   ├── behavior/            # What: Behavior specs, edge cases
+│   ├── architecture/        # How: System design, RAG plans
+│   ├── eval/                # Testing: Eval sets, drift history
+│   ├── governance/          # Safety: Risk register, governance cards
+│   ├── adoption/            # Usage: Metrics, workflow maps
+│   ├── docs/                # Context: Source business docs (Office/PDF)
+│   ├── knowledge/           # AI Memory: Auto-converted docs for Agents
+│   ├── configuration/       # Config: App properties
+│   └── metrics/             # Data: Weekly metrics tracking
+└── [your code]
 ```
 
-## Business Documentation
+## Business Documentation & AI Context
 
-The `biased/docs/` folder provides a structured location for business documentation that AI can reference for context and branding while building applications. This documentation will also be hosted on the BIASED dashboard for your organization.
+The `biased/docs/` folder is where you drop your existing business documents. The CLI automatically processes these into `biased/knowledge/` for AI consumption.
 
-### Documentation Categories
-
-- **📘 branding/** - Brand identity, style guides, logo usage, color palettes, typography, voice and tone guidelines
-- **📊 business-process/** - Business process maps, workflow diagrams, standard operating procedures
-- **🎯 strategy/** - Strategic plans, roadmaps, vision statements, OKRs, competitive analysis
-- **🚀 onboarding/** - Employee onboarding guides, new hire checklists, role-specific onboarding
-- **⚙️ operations/** - Operational procedures, maintenance guides, incident response plans, runbooks
-- **📚 training/** - Training materials, tutorials, best practices, skill development resources
-
-Each folder includes comprehensive README templates to guide you in creating your documentation. An example brand guide template is included to help you get started.
-
-### Why Business Documentation?
-
-- **AI Context**: Ensures AI tools understand your brand, processes, and business goals
-- **Consistency**: Maintains brand and operational consistency across AI-generated content
-- **Knowledge Base**: Centralizes business knowledge for team reference
-- **Dashboard Integration**: Ready for hosting on the BIASED dashboard
-
-### `biased updateKnowledge`
-Convert business documentation in `biased/docs` into an AI-ready knowledge base in `biased/knowledge`. AI Agents and CI/CD pipelines will ignore the docs directory. Agent will reference files in the knowledge folder for context. This command is run automatically when you run `biased init`.
-
-**Features:**
-- Converts Word (.docx), PowerPoint (.pptx), PDF (.pdf), Excel (.xlsx), and Text files to Markdown
-- Creates metadata placeholders for binary assets (images, etc.)
-- Synchronizes changes (updates modified files, removes deleted ones)
-- Generates a summary of your knowledge base
-
-## Getting Started
-
-After initializing BIASED in your project:
-
-1. **Define Intent** - Start with `biased/intent/intent.md` to describe what your AI should accomplish
-2. **Specify Behaviors** - Document expected behaviors in `biased/behavior/behavior-spec.md`
-3. **Add Business Context** - Populate `biased/docs/` with your brand guidelines and processes
-4. **Create Evaluations** - Add test cases to `biased/eval/eval-set.jsonl`
-5. **Document Architecture** - Describe your AI system in `biased/architecture/architecture.md`
-
-## Language Agnostic
-
-BIASED works with **any** programming language or framework:
-- JavaScript/TypeScript
-- Python
-- Java
-- C#
-- Go
-- Ruby
-- PHP
-- And more...
-
-The framework focuses on AI ceremonies and metrics, not code implementation.
-
-## Integration with BIASED Dashboard
-
-The BIASED framework is designed to integrate with the BIASED dashboard (coming soon), which will provide:
-- Centralized documentation hosting
-- Team collaboration features
-- AI-powered insights
-- Metrics visualization
-- Governance tracking
-
-## Philosophy
-
-BIASED decouples AI ceremonies and metrics from implementation details. This means:
-- ✅ Works with any language or tech stack
-- ✅ Focuses on AI governance and evaluation
-- ✅ Provides structure without being prescriptive
-- ✅ Integrates with your existing workflow
-- ✅ Scales from small projects to enterprise
-
-## Commands
-
-### `biased init`
-Add the BIASED framework to your existing project in the current directory.
-
-**Options:**
-- `-n, --name <name>` - Project name (defaults to directory name)
-
-### `biased validate`
-Check if your project adheres to the BIASED framework structure. This command validates:
-- Existence of the `biased/` directory
-- Presence of critical files (Intent, Behavior, Eval, Governance)
-- Validity of JSON configuration files
-
-**Usage:**
-```bash
-biased validate
-```
-
-### `biased ci`
-Generate a GitHub Actions workflow (`.github/workflows/biased-eval.yml`) to automate your BIASED evaluation pipeline. This workflow will:
-- Run on push and pull requests
-- Validate framework structure
-- Run your project's tests
-
-**Usage:**
-```bash
-biased ci
-```
-
-### `biased remove`
-Remove the BIASED framework from your project. This will permanently delete the `biased/` directory and all its contents. You will be prompted for confirmation.
-
-### `biased install-bdd`
-Install BDD (Behavior-Driven Development) testing dependencies for your project. The command detects your project type and installs the appropriate tools:
-
-- **Node.js**: Installs `@cucumber/cucumber`
-- **Python**: Installs `behave`
-- **.NET/C#**: Installs `SpecFlow`
-- **Java**: Provides Maven/Gradle instructions for `cucumber-java`
-- **Other**: Displays manual installation instructions
-
-This is an opt-in command that encourages BDD practices without forcing dependencies.
+1. **Place files in `biased/docs/`** (Brand guides, SOPs, Strategy decks)
+2. **Run `npx biased-cli update-knowledge`**
+3. **AI Agents read `biased/knowledge/`** to understand your business context
 
 ## Contributing
 
-PRs welcome! This tool is in active development.
+PRs are welcome! This tool is in active development.
 
 ## License
 
 MIT
 
+
 ## Version
 
-Current version: 0.3.0
+Current version: 0.4.0
 
 ### Changelog
 
