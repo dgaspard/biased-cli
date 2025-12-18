@@ -12,9 +12,9 @@ export async function installBddCommand() {
     try {
         // Node.js detection
         if (await fs.pathExists(path.join(cwd, "package.json"))) {
-            spinner.text = "Node.js project detected. Installing Cucumber...";
-            execSync("npm install --save-dev @cucumber/cucumber", { stdio: "inherit", cwd });
-            spinner.succeed(chalk.green("Cucumber installed for Node.js!"));
+            spinner.text = "Node.js project detected. Installing Cucumber & Playwright...";
+            execSync("npm install --save-dev @cucumber/cucumber @playwright/test ts-node", { stdio: "inherit", cwd });
+            spinner.succeed(chalk.green("Cucumber & Playwright installed for Node.js!"));
             console.log(chalk.gray("\n💡 Create .feature files in biased/eval/ to get started\n"));
             return;
         }
