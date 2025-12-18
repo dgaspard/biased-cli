@@ -5,6 +5,7 @@ import { validateCommand } from "./commands/validate.js";
 import { ciCommand } from "./commands/ci.js";
 import { removeCommand } from "./commands/remove.js";
 import { installBddCommand } from "./commands/install-bdd.js";
+import { installBiasedCommand } from "./commands/install-biased.js";
 import { initCommand } from "./commands/init.js";
 const program = new Command();
 program
@@ -29,6 +30,12 @@ program
     .description("Install BDD testing dependencies for your project")
     .action(async () => {
     await installBddCommand();
+});
+program
+    .command("install-biased")
+    .description("Add the BIASED Admin Portal to your Next.js project")
+    .action(async () => {
+    await installBiasedCommand();
 });
 program
     .command("updateKnowledge")

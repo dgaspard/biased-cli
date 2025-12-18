@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "jsx": "react-jsx",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "target": "ES2022",
+        "lib": [
+            "DOM",
+            "DOM.Iterable",
+            "ESNext"
+        ],
+        "strict": false,
+        "skipLibCheck": true,
+        "types": [
+            "react",
+            "node"
+        ]
+    },
+    "include": [
+        "**/*.ts",
+        "**/*.tsx"
+    ]
+}
