@@ -50,6 +50,28 @@ npx biased-cli init --name "My Project"
 - Auto-runs `update-knowledge` to process documentation
 - Auto-runs `ci` to set up GitHub Actions
 
+### `install-biased`
+Adds the BIASED Admin Portal to your project. Supports both Next.js and generic Node.js/Express applications.
+
+```bash
+npx biased-cli install-biased
+# OR
+npx biased-cli install-biased --allowed-domain company.com --access-mode domainAllowlist
+```
+
+**Options:**
+- `--allowed-domain <domain>`: Add domain to allowlist (repeatable)
+- `--allowed-email <email>`: Add email to allowlist (repeatable)
+- `--access-mode <mode>`: Set access mode (`domainAllowlist` (default), `emailAllowlist`, `idpAssignedOnly`)
+- `--force`: Overwrite existing files
+
+**Environment Variables Required (for Generic JS):**
+- `OIDC_ISSUER_URL`, `OIDC_CLIENT_ID`, `OIDC_CLIENT_SECRET`, `OIDC_REDIRECT_URI`
+- `SESSION_SECRET` (generic JS only)
+
+**Configuration:**
+Auth rules are stored in `biasedAdmin/portal.auth.json`.
+
 ### `validate`
 Validates that your project adheres to the BIASED framework standards.
 

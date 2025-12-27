@@ -1,16 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-// Mock Config Loader (in a real app this would be more robust)
-// In a real implementation this might fetch from an API route that reads the JSON
-// For this template, we'll placeholder it or allow it to be injected via DefinePlugin if we were fancy
-// but for simplicity we will just read a local config file if we can, or just hardcode the logic for now.
-// Because this is a client component, we can't read files directly.
-// We will assume the user manually configures the env or we write it to a localized config file.
-// For MVP, we will assume the dashboard URL is passed or hardcoded by the installer replacer.
+// Dashboard URL will be injected during installation
 const DASHBOARD_URL = "{{DASHBOARD_URL}}";
 
 export default function AdminWelcome() {
@@ -25,61 +18,108 @@ export default function AdminWelcome() {
     }, [router]);
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen p-8">
-            <div className="w-full max-w-4xl space-y-12">
-                {/* Header */}
-                <header className="flex flex-col items-start gap-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium">
-                        <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-                        Admin Portal Active
-                    </div>
-                    <h1 className="text-5xl md:text-7xl font-bold tracking-tight bg-gradient-to-r from-white to-neutral-500 bg-clip-text text-transparent">
-                        BIASED <span className="font-light">Control</span>
-                    </h1>
-                    <p className="text-xl text-neutral-400 max-w-2xl">
-                        Manage governance, monitor behavior, and ensure compliance across your AI systems.
-                    </p>
-                </header>
+        <div className="flex flex-col min-h-screen p-6 md:p-12 max-w-7xl mx-auto">
+            {/* Header Section */}
+            <header className="mb-12">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border-2 border-[#6BA357] bg-[#E7F0E8] text-[#3B7B4B] text-sm font-semibold mb-6">
+                    <span className="w-2 h-2 rounded-full bg-[#6BA357]" />
+                    Admin Portal Active
+                </div>
 
-                {/* Action Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
-                    <div className="group relative p-8 rounded-3xl bg-neutral-900 border border-neutral-800 hover:border-neutral-600 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-900/10">
-                        <div className="absolute top-8 right-8 text-neutral-600 group-hover:text-blue-400 transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" y1="16" x2="12" y2="12" /><line x1="12" y1="8" x2="12.01" y2="8" /></svg>
-                        </div>
-                        <h3 className="text-2xl font-semibold mb-2 text-white">Project Dashboard</h3>
-                        <p className="text-neutral-400 mb-8 h-12">View real-time metrics, evaluation scores, and governance reports.</p>
-                        <a href={DASHBOARD_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-white font-medium hover:gap-4 transition-all">
-                            Launch Dashboard <span className="text-blue-500">→</span>
+                <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
+                    <span className="text-[#2D2D2D]">BIASED</span>{" "}
+                    <span className="text-[#3F6E7B] font-normal">Control</span>
+                </h1>
+
+                <p className="text-lg md:text-xl text-[#5A5A5A] max-w-3xl leading-relaxed">
+                    Manage governance, monitor behavior, and ensure compliance across your AI systems.
+                </p>
+            </header>
+
+            {/* Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                {/* Project Dashboard Card */}
+                <div className="bg-white rounded-2xl border border-[#E0E0E0] overflow-hidden hover:shadow-lg transition-shadow">
+                    <div className="h-1.5 bg-[#3B7B4B]" />
+                    <div className="p-8">
+                        <h2 className="text-2xl font-bold text-[#CCCCCC] mb-3">
+                            Project Dashboard
+                        </h2>
+                        <p className="text-[#5A5A5A] mb-6 leading-relaxed">
+                            View real-time metrics, evaluation scores, and governance reports.
+                        </p>
+                        <a
+                            href={DASHBOARD_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-[#3B7B4B] font-semibold hover:gap-4 transition-all"
+                        >
+                            Launch Dashboard <span className="text-[#E5A83D]">→</span>
                         </a>
                     </div>
+                </div>
 
-                    <div className="group relative p-8 rounded-3xl bg-neutral-900 border border-neutral-800 hover:border-neutral-600 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-900/10">
-                        <div className="absolute top-8 right-8 text-neutral-600 group-hover:text-purple-400 transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" /><polyline points="14 2 14 8 20 8" /></svg>
-                        </div>
-                        <h3 className="text-2xl font-semibold mb-2 text-white">Documentation</h3>
-                        <p className="text-neutral-400 mb-8 h-12">Access integration guides, intent definitions, and API references.</p>
-                        <div className="flex gap-4">
-                            <button className="px-4 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-sm font-medium transition-colors">View Sops</button>
-                            <button className="px-4 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-sm font-medium transition-colors">Glossary</button>
+                {/* Documentation Card */}
+                <div className="bg-white rounded-2xl border border-[#E0E0E0] overflow-hidden hover:shadow-lg transition-shadow">
+                    <div className="h-1.5 bg-[#3F6E7B]" />
+                    <div className="p-8">
+                        <h2 className="text-2xl font-bold text-[#CCCCCC] mb-3">
+                            Documentation
+                        </h2>
+                        <p className="text-[#5A5A5A] mb-6 leading-relaxed">
+                            Access integration guides, intent definitions, and API references.
+                        </p>
+                        <div className="space-y-3">
+                            <div className="flex items-center gap-2 text-[#5A5A5A]">
+                                <svg className="w-5 h-5 text-[#6BA357]" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                </svg>
+                                <span>View SOPs</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-[#5A5A5A]">
+                                <svg className="w-5 h-5 text-[#6BA357]" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                </svg>
+                                <span>Glossary</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <footer className="pt-12 border-t border-neutral-900 text-center md:text-left flex flex-col md:flex-row justify-between items-center text-neutral-500 text-sm">
-                    <p>© {new Date().getFullYear()} BIASED Framework. All systems nominal.</p>
-                    <button
-                        onClick={() => {
-                            sessionStorage.removeItem('biased_auth');
-                            router.push('/biasedAdmin/login');
-                        }}
-                        className="hover:text-white transition-colors"
-                    >
-                        Sign Out
-                    </button>
-                </footer>
+                {/* Create New Intent Card */}
+                <div className="bg-white rounded-2xl border border-[#E0E0E0] overflow-hidden hover:shadow-lg transition-shadow">
+                    <div className="h-1.5 bg-[#E5A83D]" />
+                    <div className="p-8">
+                        <h2 className="text-2xl font-bold text-[#CCCCCC] mb-3">
+                            Create New Intent
+                        </h2>
+                        <p className="text-[#5A5A5A] mb-6 leading-relaxed">
+                            Define new business value and intent statements for your AI systems.
+                        </p>
+                        <button
+                            className="inline-flex items-center gap-2 text-[#3B7B4B] font-semibold hover:gap-4 transition-all"
+                        >
+                            Create Intent <span className="text-[#E5A83D]">→</span>
+                        </button>
+                    </div>
+                </div>
             </div>
+
+            {/* Footer */}
+            <footer className="pt-8 border-t-2 border-[#E0E0E0] flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-[#5A5A5A]">
+                <p className="text-sm">
+                    © {new Date().getFullYear()} BIASED Framework. Professional governance and compliance.
+                </p>
+                <button
+                    onClick={() => {
+                        sessionStorage.removeItem('biased_auth');
+                        router.push('/biasedAdmin/login');
+                    }}
+                    className="text-sm font-semibold hover:text-[#3B7B4B] transition-colors"
+                >
+                    Sign Out
+                </button>
+            </footer>
         </div>
     );
 }

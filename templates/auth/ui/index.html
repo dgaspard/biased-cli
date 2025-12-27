@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIASED Admin Portal</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #111; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { background: #222; padding: 2rem; border-radius: 12px; border: 1px solid #333; max-width: 400px; width: 100%; text-align: center; }
+        h1 { margin-top: 0; }
+        .btn { display: inline-block; background: #fff; color: #000; padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 6px; font-weight: bold; margin-top: 1rem; cursor: pointer; border: none; }
+        .btn:hover { background: #ddd; }
+        .error { color: #ff6b6b; margin-top: 1rem; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container" id="loading">
+        <p>Loading...</p>
+    </div>
+
+    <div class="container hidden" id="login-view">
+        <h1>BIASED Admin</h1>
+        <p>Please sign in to access the governance portal.</p>
+        <a href="/biasedAdmin/login" class="btn">Sign In with SSO</a>
+    </div>
+
+    <div class="container hidden" id="admin-view">
+        <h1>Welcome</h1>
+        <p id="user-email" style="color: #888;"></p>
+        <p>You have authorized access.</p>
+        <a href="#" id="dashboard-link" class="btn" target="_blank">Open Dashboard</a>
+        <br><br>
+        <form action="/biasedAdmin/logout" method="POST">
+            <button type="submit" style="background:none; border:none; color: #666; cursor: pointer; text-decoration: underline;">Sign Out</button>
+        </form>
+    </div>
+
+    <div class="container hidden" id="error-view">
+        <h1>Access Denied</h1>
+        <p>You are authenticated, but do not have permission to view this portal.</p>
+        <p class="error" id="error-msg"></p>
+        <form action="/biasedAdmin/logout" method="POST">
+            <button type="submit" class="btn">Sign Out</button>
+        </form>
+    </div>
+
+    <script>
+        async function checkAuth() {
+            try {
+                const res = await fetch('/biasedAdmin/api/me');
+                const data = await res.json();
+
+                document.getElementById('loading').classList.add('hidden');
+
+                if (!data.isAuthenticated) {
+                    document.getElementById('login-view').classList.remove('hidden');
+                    return;
+                }
+
+                if (data.isAdmin) {
+                    document.getElementById('admin-view').classList.remove('hidden');
+                    document.getElementById('user-email').textContent = data.user.email;
+                    // Logic to fetch custom dashboard URL could go here, for now using placeholder or config based
+                    // data.config.dashboardUrl would typically be passed or fetched.
+                } else {
+                    document.getElementById('error-view').classList.remove('hidden');
+                    document.getElementById('error-msg').textContent = `Access Mode: ${data.accessMode}`;
+                }
+            } catch (e) {
+                console.error(e);
+                document.getElementById('loading').textContent = 'Error loading portal.';
+            }
+        }
+
+        checkAuth();
+    </script>
+</body>
+</html>

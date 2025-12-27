@@ -33,9 +33,13 @@ program
 });
 program
     .command("install-biased")
-    .description("Add the BIASED Admin Portal to your Next.js project")
-    .action(async () => {
-    await installBiasedCommand();
+    .description("Add the BIASED Admin Portal to your project")
+    .option("-f, --force", "Overwrite existing files")
+    .option("--allowed-domain <domain...>", "Add domain to allowlist (repeatable)", [])
+    .option("--allowed-email <email...>", "Add email to allowlist (repeatable)", [])
+    .option("--access-mode <mode>", "Access mode: domainAllowlist|emailAllowlist|idpAssignedOnly")
+    .action(async (opts) => {
+    await installBiasedCommand(opts);
 });
 program
     .command("updateKnowledge")

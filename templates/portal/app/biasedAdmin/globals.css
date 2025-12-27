@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  /* BIASED Brand Colors */
+  --color-dark-green: #3B7B4B;
+  --color-light-green: #6BA357;
+  --color-golden-yellow: #E5A83D;
+  --color-terracotta: #BF5B3D;
+  --color-dark-teal: #3F6E7B;
+  
+  /* Text Colors */
+  --color-text-primary: #2D2D2D;
+  --color-text-secondary: #5A5A5A;
+  
+  /* Background Colors */
+  --color-bg-primary: #F8F8F8;
+  --color-bg-white: #FFFFFF;
+  --color-bg-light-accent: #E7F0E8;
+  
+  /* Border Colors */
+  --color-border-light: #E0E0E0;
+  --color-border-medium: #CCCCCC;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+}

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Open_Sans } from "next/font/google";
+import "./globals.css";
 
-
-const inter = Inter({ subsets: ["latin"] });
+const openSans = Open_Sans({ subsets: ["latin"], weight: ["400", "600", "700"] });
 
 export const metadata: Metadata = {
     title: "BIASED Admin",
@@ -15,10 +15,10 @@ export default function BiasedAdminLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <div className={`min-h-screen bg-neutral-950 text-neutral-100 ${inter.className}`}>
-            {/* Subtle Grid Background */}
-            <div className="fixed inset-0 z-0 opacity-20 pointer-events-none"
-                style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, #333 1px, transparent 0)', backgroundSize: '40px 40px' }}>
+        <div className={`min-h-screen bg-gray-50 ${openSans.className}`}>
+            {/* Subtle Light Grid Background */}
+            <div className="fixed inset-0 z-0 opacity-[0.03] pointer-events-none"
+                style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, #3B7B4B 1px, transparent 0)', backgroundSize: '40px 40px' }}>
             </div>
 
             <main className="relative z-10">{children}</main>

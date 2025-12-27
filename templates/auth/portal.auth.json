@@ -1,0 +1,7 @@
+{
+    "accessMode": "domainAllowlist",
+    "allowedDomains": [
+        "company.com"
+    ],
+    "allowedEmails": []
+}
